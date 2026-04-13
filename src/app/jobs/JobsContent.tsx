@@ -1,11 +1,11 @@
 'use client';
 
 import { useSearchParams, useRouter } from 'next/navigation';
-import { jobs } from '@/data/jobs';
+import type { Job } from '@/data/jobs';
 import JobCard from '@/components/JobCard';
 import SearchBar from '@/components/SearchBar';
 
-export default function JobsContent() {
+export default function JobsContent({ jobs }: { jobs: Job[] }) {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -59,7 +59,7 @@ export default function JobsContent() {
 
       {/* Count */}
       <p className="text-sm text-gray-500 mb-6">
-        {filtered.length === 0 ? '' : `נמצאו ${filtered.length} משרות`}
+        {filtered.length > 0 && `נמצאו ${filtered.length} משרות`}
         {(q || location) && (
           <button
             onClick={() => router.push('/jobs')}

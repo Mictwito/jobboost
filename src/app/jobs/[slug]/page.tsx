@@ -82,35 +82,45 @@ export default async function JobPage({ params }: Props) {
           </ul>
         </section>
 
-        {/* Who is it for */}
-        <section className="mb-6 bg-blue-50 rounded-xl p-5">
-          <h2 className="text-lg font-bold text-gray-900 mb-2">למי המשרה מתאימה</h2>
-          <p className="text-gray-700 text-sm leading-relaxed">{job.whoIsItFor}</p>
-        </section>
+        {/* Who is it for — only shown if populated */}
+        {job.whoIsItFor && (
+          <section className="mb-6 bg-blue-50 rounded-xl p-5">
+            <h2 className="text-lg font-bold text-gray-900 mb-2">למי המשרה מתאימה</h2>
+            <p className="text-gray-700 text-sm leading-relaxed">{job.whoIsItFor}</p>
+          </section>
+        )}
 
         {/* Why apply */}
-        <section className="mb-6 bg-green-50 rounded-xl p-5">
-          <h2 className="text-lg font-bold text-gray-900 mb-2">למה כדאי להגיש</h2>
-          <p className="text-gray-700 text-sm leading-relaxed">{job.whyApply}</p>
-        </section>
+        {job.whyApply && (
+          <section className="mb-6 bg-green-50 rounded-xl p-5">
+            <h2 className="text-lg font-bold text-gray-900 mb-2">למה כדאי להגיש</h2>
+            <p className="text-gray-700 text-sm leading-relaxed">{job.whyApply}</p>
+          </section>
+        )}
 
         {/* Tips */}
-        <section className="mb-6 bg-amber-50 rounded-xl p-5">
-          <h2 className="text-lg font-bold text-gray-900 mb-2">טיפים להתבלט</h2>
-          <p className="text-gray-700 text-sm leading-relaxed">{job.tips}</p>
-        </section>
+        {job.tips && (
+          <section className="mb-6 bg-amber-50 rounded-xl p-5">
+            <h2 className="text-lg font-bold text-gray-900 mb-2">טיפים להתבלט</h2>
+            <p className="text-gray-700 text-sm leading-relaxed">{job.tips}</p>
+          </section>
+        )}
 
         {/* How to get hired */}
-        <section className="mb-6 bg-indigo-50 rounded-xl p-5">
-          <h2 className="text-lg font-bold text-gray-900 mb-2">איך להתקבל למשרה הזו</h2>
-          <p className="text-gray-700 text-sm leading-relaxed">{job.howToGetHired}</p>
-        </section>
+        {job.howToGetHired && (
+          <section className="mb-6 bg-indigo-50 rounded-xl p-5">
+            <h2 className="text-lg font-bold text-gray-900 mb-2">איך להתקבל למשרה הזו</h2>
+            <p className="text-gray-700 text-sm leading-relaxed">{job.howToGetHired}</p>
+          </section>
+        )}
 
         {/* What recruiter looks for */}
-        <section className="mb-8 bg-rose-50 rounded-xl p-5">
-          <h2 className="text-lg font-bold text-gray-900 mb-2">מה המגייס באמת מחפש</h2>
-          <p className="text-gray-700 text-sm leading-relaxed">{job.whatRecruiterLooksFor}</p>
-        </section>
+        {job.whatRecruiterLooksFor && (
+          <section className="mb-8 bg-rose-50 rounded-xl p-5">
+            <h2 className="text-lg font-bold text-gray-900 mb-2">מה המגייס באמת מחפש</h2>
+            <p className="text-gray-700 text-sm leading-relaxed">{job.whatRecruiterLooksFor}</p>
+          </section>
+        )}
 
         {/* Match Score Widget */}
         <div className="mb-8">
