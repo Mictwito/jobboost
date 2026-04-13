@@ -1,65 +1,136 @@
-import Image from "next/image";
+import Link from 'next/link';
+import type { Metadata } from 'next';
+import SearchBar from '@/components/SearchBar';
+import JobCard from '@/components/JobCard';
+import ArticleCard from '@/components/ArticleCard';
+import EmailCapture from '@/components/EmailCapture';
+import { jobs } from '@/data/jobs';
+import { articles } from '@/data/articles';
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: 'JobBoost — מצא עבודה. תבלוט. תתקבל.',
+  description: 'פלטפורמת קריירה חכמה שעוזרת לך למצוא עבודה, לבלוט מהמתחרים ולהתקבל.',
+};
+
+export default function HomePage() {
+  const featuredJobs = jobs.filter((j) => j.isActive).slice(0, 4);
+  const featuredArticles = articles.slice(0, 6);
+  const activeCount = jobs.filter((j) => j.isActive).length;
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <>
+      {/* Hero */}
+      <section className="bg-blue-600 text-white py-16 px-4">
+        <div className="max-w-3xl mx-auto text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+            מצא עבודה. תבלוט. תתקבל.
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-lg text-blue-100 mb-10">
+            פלטפורמת הקריירה החכמה שעוזרת לך להתקבל לעבודה הבאה שלך
           </p>
+          <div className="flex justify-center">
+            <SearchBar />
+          </div>
+          <p className="text-sm text-blue-200 mt-4">{activeCount} משרות פתוחות עכשיו</p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* AI Tools Strip */}
+      <section className="bg-gray-900 text-white py-10 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <p className="text-xs text-blue-400 font-medium uppercase tracking-wider mb-1">כלי AI חינמיים</p>
+              <h2 className="text-xl font-bold">בדוק כמה אתה מתאים למשרה — תוך 10 שניות</h2>
+              <p className="text-sm text-gray-400 mt-1">שיפור קורות חיים • מחשבון שכר • סוכן קריירה</p>
+            </div>
+            <Link
+              href="/tools"
+              className="shrink-0 bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl transition-colors"
+            >
+              נסה את הכלים →
+            </Link>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* Featured Jobs */}
+      <section className="max-w-6xl mx-auto px-4 py-14">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl font-bold text-gray-900">משרות מובחרות</h2>
+          <Link href="/jobs" className="text-sm text-blue-600 font-medium hover:underline">
+            כל המשרות ←
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {featuredJobs.map((job) => (
+            <JobCard key={job.slug} job={job} />
+          ))}
+        </div>
+      </section>
+
+      {/* Articles — prominent section */}
+      <section className="bg-gray-50 border-y border-gray-100 py-14 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex justify-between items-center mb-8">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">מדריכי קריירה</h2>
+              <p className="text-sm text-gray-500 mt-1">כל מה שצריך לדעת כדי להצליח בחיפוש העבודה</p>
+            </div>
+            <Link href="/articles" className="text-sm text-blue-600 font-medium hover:underline">
+              כל המאמרים ←
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredArticles.map((article) => (
+              <ArticleCard key={article.slug} article={article} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Value Section */}
+      <section className="bg-white py-14 px-4">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-gray-900 text-center mb-12">למה JobBoost?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            {[
+              {
+                icon: '🎯',
+                title: 'משרות ממוקדות',
+                text: 'משרות עדכניות מהמובילים בשוק, מסוננות ומסודרות לפי תחום ומיקום.',
+              },
+              {
+                icon: '🤖',
+                title: 'כלי AI חכמים',
+                text: 'שיפור קורות חיים, בדיקת התאמה למשרה, מחשבון שכר וסוכן קריירה — בחינם.',
+              },
+              {
+                icon: '✍️',
+                title: 'תוכן שמנצח',
+                text: 'מאמרים מעשיים על קורות חיים, ראיונות ושוק העבודה — שיעזרו לך להתבלט.',
+              },
+            ].map((item) => (
+              <div key={item.title}>
+                <div className="text-4xl mb-4">{item.icon}</div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
+                <p className="text-sm text-gray-500 leading-relaxed">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Email Capture */}
+      <section className="bg-blue-600 py-14 px-4">
+        <div className="max-w-xl mx-auto text-center">
+          <h2 className="text-2xl font-bold text-white mb-2">קבל משרות חדשות ישירות למייל</h2>
+          <p className="text-blue-100 text-sm mb-8">
+            הרשם ונעדכן אותך כשיהיו משרות חדשות שמתאימות לפרופיל שלך
+          </p>
+          <EmailCapture />
+        </div>
+      </section>
+    </>
   );
 }
