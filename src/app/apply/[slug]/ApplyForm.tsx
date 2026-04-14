@@ -6,6 +6,7 @@ export default function ApplyForm({ jobTitle, jobSlug }: { jobTitle: string; job
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [file, setFile] = useState<File | null>(null);
   const [fileName, setFileName] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -30,10 +31,17 @@ export default function ApplyForm({ jobTitle, jobSlug }: { jobTitle: string; job
     setError('');
 
     try {
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('email', email);
+      formData.append('jobTitle', jobTitle);
+      formData.append('jobSlug', jobSlug);
+      formData.append('message', message);
+      if (file) formData.append('cv', file);
+
       const res = await fetch('/api/apply', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, jobTitle, jobSlug, message }),
+        body: formData,
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? 'שגיאה בשליחה');
@@ -98,7 +106,11 @@ export default function ApplyForm({ jobTitle, jobSlug }: { jobTitle: string; job
             type="file"
             accept=".pdf,.docx"
             className="hidden"
-            onChange={(e) => setFileName(e.target.files?.[0]?.name ?? '')}
+            onChange={(e) => {
+                const f = e.target.files?.[0];
+                setFile(f ?? null);
+                setFileName(f?.name ?? '');
+              }}
           />
         </label>
       </div>
