@@ -18,6 +18,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'חסרים שדות חובה' }, { status: 400 });
     }
 
+    if (!cvFile || cvFile.size === 0) {
+      return NextResponse.json({ error: 'יש לצרף קורות חיים' }, { status: 400 });
+    }
+
     // Build Resend attachments if a CV was uploaded
     const attachments: { filename: string; content: Buffer }[] = [];
     if (cvFile && cvFile.size > 0) {

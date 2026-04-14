@@ -137,7 +137,7 @@ export default function ApplyForm({ jobTitle, jobSlug }: { jobTitle: string; job
 
       <button
         type="submit"
-        disabled={loading || !name || !email}
+        disabled={loading || !name || !email || !file}
         className="w-full bg-blue-600 text-white text-base font-bold py-4 rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50"
       >
         {loading ? 'שולח...' : 'שלח מועמדות'}
