@@ -20,9 +20,9 @@ export default function JobsContent({ jobs }: { jobs: Job[] }) {
     const matchesQuery =
       !sq ||
       job.title.toLowerCase().includes(sq) ||
-      job.category.toLowerCase().includes(sq) ||
       job.company.toLowerCase().includes(sq) ||
-      job.location.toLowerCase().includes(sq);
+      job.location.toLowerCase().includes(sq) ||
+      job.description.toLowerCase().includes(sq);
     const matchesLocation = !location || job.location === location;
     return matchesQuery && matchesLocation;
   });
@@ -36,7 +36,7 @@ export default function JobsContent({ jobs }: { jobs: Job[] }) {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">משרות עבודה</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-8">משרות הייטק בישראל – פיתוח, QA, DevOps ודאטה</h1>
 
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3 mb-6">

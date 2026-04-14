@@ -8,8 +8,9 @@ import { jobs } from '@/data/jobs';
 import { articles } from '@/data/articles';
 
 export const metadata: Metadata = {
-  title: 'JobBoost — מצא עבודה. תבלוט. תתקבל.',
-  description: 'פלטפורמת קריירה חכמה שעוזרת לך למצוא עבודה, לבלוט מהמתחרים ולהתקבל.',
+  title: 'דרושים הייטק בישראל | JobBoost',
+  description: 'מצא משרות הייטק בפיתוח, QA, דאטה, DevOps וסייבר. משרות עדכניות מחברות מובילות בישראל.',
+  keywords: 'דרושים הייטק, משרות הייטק, דרושים פיתוח תוכנה, משרות QA, דרושים DevOps, משרות סייבר, קריירה בהייטק',
 };
 
 export default function HomePage() {
@@ -23,7 +24,7 @@ export default function HomePage() {
       <section className="bg-blue-600 text-white py-16 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-            מצא עבודה. תבלוט. תתקבל.
+            דרושים הייטק בישראל – משרות פיתוח, QA, דאטה וסייבר
           </h1>
           <p className="text-lg text-blue-100 mb-10">
             פלטפורמת הקריירה החכמה שעוזרת לך להתקבל לעבודה הבאה שלך
@@ -32,6 +33,39 @@ export default function HomePage() {
             <SearchBar />
           </div>
           <p className="text-sm text-blue-200 mt-4">{activeCount} משרות פתוחות עכשיו</p>
+        </div>
+      </section>
+
+      {/* SEO Section */}
+      <section className="bg-white border-b border-gray-100 py-10 px-4">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-xl font-bold text-gray-900 mb-3">
+            דרושים הייטק בישראל – כל המשרות במקום אחד
+          </h2>
+          <p className="text-gray-600 text-sm leading-relaxed mb-4">
+            באתר JobBoost תמצאו מגוון רחב של משרות הייטק בתחומים כמו פיתוח תוכנה, QA, Data, DevOps וסייבר.
+            המשרות מגיעות מחברות טכנולוגיה מובילות בישראל ומיועדות לכל רמות הניסיון — מ-Junior ועד Senior.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {[
+              { label: 'משרות Frontend', href: '/jobs/frontend' },
+              { label: 'משרות Backend', href: '/jobs/backend' },
+              { label: 'משרות Fullstack', href: '/jobs/fullstack' },
+              { label: 'משרות QA', href: '/jobs/qa' },
+              { label: 'משרות DevOps', href: '/jobs/devops' },
+              { label: 'משרות סייבר', href: '/jobs/cyber-security' },
+              { label: 'משרות דאטה', href: '/jobs/data' },
+              { label: 'משרות Help Desk', href: '/jobs/help-desk' },
+            ].map((cat) => (
+              <Link
+                key={cat.href}
+                href={cat.href}
+                className="text-xs bg-gray-100 hover:bg-blue-50 hover:text-blue-700 text-gray-600 px-3 py-1.5 rounded-full transition-colors"
+              >
+                {cat.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -57,7 +91,7 @@ export default function HomePage() {
       {/* Featured Jobs */}
       <section className="max-w-6xl mx-auto px-4 py-14">
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl font-bold text-gray-900">משרות מובחרות</h2>
+          <h2 className="text-2xl font-bold text-gray-900">משרות הייטק מובחרות</h2>
           <Link href="/jobs" className="text-sm text-blue-600 font-medium hover:underline">
             כל המשרות ←
           </Link>
@@ -69,13 +103,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Articles — prominent section */}
+      {/* Articles */}
       <section className="bg-gray-50 border-y border-gray-100 py-14 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="flex justify-between items-center mb-8">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">מדריכי קריירה</h2>
-              <p className="text-sm text-gray-500 mt-1">כל מה שצריך לדעת כדי להצליח בחיפוש העבודה</p>
+              <h2 className="text-2xl font-bold text-gray-900">מדריכי קריירה בהייטק</h2>
+              <p className="text-sm text-gray-500 mt-1">כל מה שצריך לדעת כדי להתקבל לעבודה בהייטק</p>
             </div>
             <Link href="/articles" className="text-sm text-blue-600 font-medium hover:underline">
               כל המאמרים ←
@@ -97,8 +131,8 @@ export default function HomePage() {
             {[
               {
                 icon: '🎯',
-                title: 'משרות ממוקדות',
-                text: 'משרות עדכניות מהמובילים בשוק, מסוננות ומסודרות לפי תחום ומיקום.',
+                title: 'משרות הייטק ממוקדות',
+                text: 'פיתוח, QA, DevOps, דאטה וסייבר — משרות עדכניות מחברות טכנולוגיה מובילות בישראל.',
               },
               {
                 icon: '🤖',
@@ -108,7 +142,7 @@ export default function HomePage() {
               {
                 icon: '✍️',
                 title: 'תוכן שמנצח',
-                text: 'מאמרים מעשיים על קורות חיים, ראיונות ושוק העבודה — שיעזרו לך להתבלט.',
+                text: 'מאמרים מעשיים על קורות חיים, ראיונות ושוק ההייטק — שיעזרו לך להתבלט.',
               },
             ].map((item) => (
               <div key={item.title}>
@@ -124,9 +158,9 @@ export default function HomePage() {
       {/* Email Capture */}
       <section className="bg-blue-600 py-14 px-4">
         <div className="max-w-xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-white mb-2">קבל משרות חדשות ישירות למייל</h2>
+          <h2 className="text-2xl font-bold text-white mb-2">קבל משרות הייטק חדשות ישירות למייל</h2>
           <p className="text-blue-100 text-sm mb-8">
-            הרשם ונעדכן אותך כשיהיו משרות חדשות שמתאימות לפרופיל שלך
+            הרשם ונעדכן אותך כשיהיו משרות חדשות בתחומים שמעניינים אותך
           </p>
           <EmailCapture />
         </div>

@@ -4,8 +4,9 @@ import { jobs } from '@/data/jobs';
 import JobsContent from './JobsContent';
 
 export const metadata: Metadata = {
-  title: 'משרות עבודה | JobBoost',
-  description: 'כל המשרות הפתוחות — פיתוח, DevOps, QA, Data, סייבר ועוד. חפש וסנן לפי תחום ומיקום.',
+  title: 'משרות הייטק בישראל – פיתוח, QA, DevOps ודאטה | JobBoost',
+  description: 'כל משרות הייטק הפתוחות בישראל — פיתוח תוכנה, QA, DevOps, Data Science וסייבר. חפש לפי תחום ומיקום.',
+  keywords: 'דרושים הייטק, משרות פיתוח, דרושים QA, משרות DevOps, דרושים דאטה, משרות סייבר בישראל',
 };
 
 export default function JobsPage() {
