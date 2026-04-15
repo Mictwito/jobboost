@@ -3,6 +3,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { jobs } from '@/data/jobs';
 import MatchScoreWidget from '@/components/MatchScoreWidget';
+import AdUnit from '@/components/AdUnit';
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -83,6 +84,9 @@ export default async function JobPage({ params }: Props) {
         <div className="mb-8">
           <MatchScoreWidget jobTitle={job.title} />
         </div>
+
+        {/* Ad before CTA */}
+        <AdUnit slot="7391820546" />
 
         {/* CTA */}
         <div id="apply" className="border-t border-gray-100 pt-8 text-center">

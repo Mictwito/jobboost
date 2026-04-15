@@ -3,6 +3,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { articles } from '@/data/articles';
 import { getSupabase, type Post } from '@/lib/supabase';
+import AdUnit from '@/components/AdUnit';
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -33,24 +34,57 @@ async function getRelatedPosts(currentSlug: string): Promise<Pick<Post, 'slug' |
   }
 }
 
+const BASE_URL = 'https://jobboost.co.il';
+const OG_IMAGE = `${BASE_URL}/og-image.png`;
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
 
   // Check static articles first
   const staticArticle = articles.find((a) => a.slug === slug);
   if (staticArticle) {
+    const url = `${BASE_URL}/articles/${slug}`;
     return {
       title: `${staticArticle.title} | JobBoost`,
       description: staticArticle.excerpt,
+      alternates: { canonical: url },
+      openGraph: {
+        type: 'article',
+        url,
+        title: `${staticArticle.title} | JobBoost`,
+        description: staticArticle.excerpt,
+        publishedTime: staticArticle.publishedAt,
+        images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: staticArticle.title }],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: `${staticArticle.title} | JobBoost`,
+        description: staticArticle.excerpt,
+      },
     };
   }
 
   // Check Supabase
   const post = await getPost(slug);
   if (!post) return { title: 'מאמר לא נמצא | JobBoost' };
+  const url = `${BASE_URL}/articles/${slug}`;
   return {
     title: `${post.title} | JobBoost`,
     description: post.meta_description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: 'article',
+      url,
+      title: `${post.title} | JobBoost`,
+      description: post.meta_description,
+      publishedTime: post.created_at,
+      images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: post.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${post.title} | JobBoost`,
+      description: post.meta_description,
+    },
   };
 }
 
@@ -115,6 +149,7 @@ export default async function ArticlePage({ params }: Props) {
           <p className="text-base text-gray-600 leading-relaxed mb-8 border-b border-gray-100 pb-8">
             {staticArticle.excerpt}
           </p>
+          <AdUnit slot="2874635109" />
           <div className="space-y-1">{renderMarkdown(staticArticle.content)}</div>
         </article>
 
@@ -155,6 +190,7 @@ export default async function ArticlePage({ params }: Props) {
         <p className="text-base text-gray-600 leading-relaxed mb-8 border-b border-gray-100 pb-8">
           {post.meta_description}
         </p>
+        <AdUnit slot="2874635109" />
         {/* Render HTML content from Gemini */}
         <div
           className="prose prose-sm max-w-none text-gray-700 leading-relaxed

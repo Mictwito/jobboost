@@ -15,6 +15,24 @@ export const metadata: Metadata = {
   title: 'JobBoost — מצא עבודה. תבלוט. תתקבל.',
   description:
     'פלטפורמת קריירה חכמה שעוזרת לך למצוא עבודה, לבלוט מהמתחרים ולהתקבל לעבודה הבאה שלך.',
+  openGraph: {
+    type: 'website',
+    locale: 'he_IL',
+    url: 'https://jobboost.co.il',
+    siteName: 'JobBoost',
+    title: 'JobBoost — מצא עבודה. תבלוט. תתקבל.',
+    description: 'פלטפורמת קריירה חכמה שעוזרת לך למצוא עבודה, לבלוט מהמתחרים ולהתקבל לעבודה הבאה שלך.',
+    images: [{ url: 'https://jobboost.co.il/og-image.png', width: 1200, height: 630, alt: 'JobBoost' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@jobboostil',
+    title: 'JobBoost — מצא עבודה. תבלוט. תתקבל.',
+    description: 'פלטפורמת קריירה חכמה שעוזרת לך למצוא עבודה, לבלוט מהמתחרים ולהתקבל לעבודה הבאה שלך.',
+  },
+  alternates: {
+    canonical: 'https://jobboost.co.il',
+  },
 };
 
 async function getNavPosts(): Promise<{ slug: string; title: string }[]> {
