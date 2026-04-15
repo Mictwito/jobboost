@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "hebrew-seo-geo-toolkit": {
+      "source": "skills-il/marketing-growth",
+      "sourceType": "github",
+      "computedHash": "b66ea4933ae3b5f93ee0941949281a94877523b952306961d8c404c955218372"
+    }
+  }
+}
