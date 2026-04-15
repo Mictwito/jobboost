@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import { Heebo } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
@@ -66,14 +65,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
       </head>
       <body className="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
-        {/*
-          beforeInteractive — Next.js injects this into the initial HTML <head>
-          before hydration. This is the only reliable way to render inline scripts
-          in Next.js App Router so Google detects gtag('config', ...).
-        */}
-        <Script id="ga-init" strategy="beforeInteractive">
-          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DZ64073P77');`}
-        </Script>
+        {/* GA inline config — dangerouslySetInnerHTML in body renders as real <script> */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DZ64073P77');`,
+          }}
+        />
         <Header navPosts={navPosts} />
         <main className="flex-1">{children}</main>
         <Footer />
