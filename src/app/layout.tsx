@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { Heebo } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
@@ -53,22 +54,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="he" dir="rtl" className={heebo.className}>
       <head>
-        {/* Google Analytics — native <script> for SSR detection */}
+        {/* GA loader + AdSense — native <script src> renders correctly in SSR */}
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-DZ64073P77"
         />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-DZ64073P77');
-            `,
-          }}
-        />
-        {/* Google AdSense — native <script> for SSR detection */}
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4664021020364773"
@@ -76,6 +66,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
       </head>
       <body className="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+        {/*
+          beforeInteractive — Next.js injects this into the initial HTML <head>
+          before hydration. This is the only reliable way to render inline scripts
+          in Next.js App Router so Google detects gtag('config', ...).
+        */}
+        <Script id="ga-init" strategy="beforeInteractive">
+          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DZ64073P77');`}
+        </Script>
         <Header navPosts={navPosts} />
         <main className="flex-1">{children}</main>
         <Footer />
