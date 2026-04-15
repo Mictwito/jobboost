@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(cmd.exe /c \"cd /d \\\\\"C:\\\\Users\\\\mictw\\\\OneDrive\\\\מסמכים\\\\cluade\\\\jobboost\\\\\" && npm run build 2>&1\")",
+      "Bash(cmd.exe /c \"cd /d \\\\\"C:\\\\Users\\\\mictw\\\\OneDrive\\\\מסמכים\\\\cluade\\\\jobboost\\\\\" && npx tsc --noEmit 2>&1\")",
+      "Bash(powershell.exe -Command \"Set-Location 'C:\\\\Users\\\\mictw\\\\OneDrive\\\\מסמכים\\\\cluade\\\\jobboost'; npm run build 2>&1\")",
+      "Bash(powershell.exe -Command \"Set-Location 'C:\\\\Users\\\\mictw\\\\OneDrive\\\\מסמכים\\\\cluade\\\\jobboost'; node --version; Get-Command node\")"
+    ]
+  }
+}

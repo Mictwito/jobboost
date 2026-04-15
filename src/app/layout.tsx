@@ -53,24 +53,17 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="he" dir="rtl" className={heebo.className}>
       <head>
-        {/* GA loader + AdSense — native <script src> renders correctly in SSR */}
         <script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-DZ64073P77"
+          src="https://www.googletagmanager.com/gtag/js?id=G-DZ64Q73P77"
         />
         <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4664021020364773"
-          crossOrigin="anonymous"
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DZ64Q73P77');`,
+          }}
         />
       </head>
       <body className="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
-        {/* GA inline config — dangerouslySetInnerHTML in body renders as real <script> */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DZ64073P77');`,
-          }}
-        />
         <Header navPosts={navPosts} />
         <main className="flex-1">{children}</main>
         <Footer />
