@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getSupabase, type Post } from '@/lib/supabase';
 
 const GEMINI_ENDPOINT =
-  'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent';
+  'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 
 const TOPICS = [
   'איך לכתוב קורות חיים שעוברים ATS ב-2026',
