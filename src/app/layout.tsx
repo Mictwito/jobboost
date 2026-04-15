@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import { Heebo } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
@@ -53,27 +52,30 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang="he" dir="rtl" className={heebo.className}>
-      <body className="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
-        {/* Google Analytics */}
-        <Script
+      <head>
+        {/* Google Analytics — native <script> for SSR detection */}
+        <script
+          async
           src="https://www.googletagmanager.com/gtag/js?id=G-DZ64073P77"
-          strategy="afterInteractive"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-DZ64073P77');
-          `}
-        </Script>
-        {/* Google AdSense */}
-        <Script
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-DZ64073P77');
+            `,
+          }}
+        />
+        {/* Google AdSense — native <script> for SSR detection */}
+        <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4664021020364773"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
         />
+      </head>
+      <body className="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
         <Header navPosts={navPosts} />
         <main className="flex-1">{children}</main>
         <Footer />
